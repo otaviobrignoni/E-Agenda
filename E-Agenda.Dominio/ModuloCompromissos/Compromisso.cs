@@ -13,10 +13,13 @@ public class Compromisso : EntidadeBase<Compromisso>
     public string? Link { get; set; } = null;
     public Contato? Contato { get; set; } = null;
     
-    public Compromisso() { }
+    public Compromisso() 
+    {
+    }
 
     public Compromisso(string assunto, DateOnly dataOcorrencia, TimeOnly inicio, TimeOnly termino, bool ehRemoto, string localOuLink) : this()
     {
+        Id = Guid.NewGuid();
         Assunto = assunto;
         DataOcorrencia = dataOcorrencia;
         HoraInicio = inicio;
@@ -27,6 +30,7 @@ public class Compromisso : EntidadeBase<Compromisso>
     }
     public Compromisso(string assunto, DateOnly dataOcorrencia, TimeOnly inicio, TimeOnly termino, bool ehRemoto, string localOuLink, Contato contato) : this()
     {
+        Id = Guid.NewGuid();
         Assunto = assunto;
         DataOcorrencia = dataOcorrencia;
         HoraInicio = inicio;
