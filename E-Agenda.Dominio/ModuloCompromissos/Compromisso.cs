@@ -12,23 +12,11 @@ public class Compromisso : EntidadeBase<Compromisso>
     public string? Local { get; set; } = null;
     public string? Link { get; set; } = null;
     public Contato? Contato { get; set; } = null;
-    
-    public Compromisso() 
-    {
-    }
 
-    public Compromisso(string assunto, DateOnly dataOcorrencia, TimeOnly inicio, TimeOnly termino, bool ehRemoto, string localOuLink) : this()
+    public Compromisso()
     {
-        Id = Guid.NewGuid();
-        Assunto = assunto;
-        DataOcorrencia = dataOcorrencia;
-        HoraInicio = inicio;
-        HoraTermino = termino;
-        Tipo = ehRemoto ? TipoCompromisso.Remoto : TipoCompromisso.Presencial;
-        if (ehRemoto) Local = localOuLink;
-        else Link = localOuLink;
     }
-    public Compromisso(string assunto, DateOnly dataOcorrencia, TimeOnly inicio, TimeOnly termino, bool ehRemoto, string localOuLink, Contato contato) : this()
+    public Compromisso(string assunto, DateOnly dataOcorrencia, TimeOnly inicio, TimeOnly termino, bool ehRemoto, string localOuLink, Contato? contato) : this()
     {
         Id = Guid.NewGuid();
         Assunto = assunto;
