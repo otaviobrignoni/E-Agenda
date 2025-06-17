@@ -7,8 +7,9 @@ namespace E_Agenda.WebApp.Models.Contatos
     public class FormularioContatoViewModel
     {
 
-        [Required(ErrorMessage = "Nome é obrigatório")]
-        [StringLength(100, MinimumLength = 2, ErrorMessage = "Nome deve ter entre 2 e 100 caracteres")]
+        [Required(ErrorMessage = "O campo \"Nome\" é obrigatório.")]
+        [MinLength(3, ErrorMessage = "O campo \"Nome\" precisa conter ao menos 3 caracteres.")]
+        [MaxLength(100, ErrorMessage = "O campo \"Nome\" precisa conter no máximo 100 caracteres.")]
         public string Nome { get; set; }
 
         [Required(ErrorMessage = "Email é obrigatório")]
@@ -16,7 +17,8 @@ namespace E_Agenda.WebApp.Models.Contatos
         public string Email { get; set; }
 
         [Required(ErrorMessage = "Telefone é obrigatório")]
-        [RegularExpression(@"^\(\d{2}\)\s\d{4,5}-\d{4}$", ErrorMessage = "Telefone deve seguir o formato (XX) XXXX-XXXX ou (XX) XXXXX-XXXX")]
+        [RegularExpression(@"^\(\d{2}\)\s\d{4,5}-\d{4}$", 
+        ErrorMessage = "Telefone deve seguir o formato (XX) XXXX-XXXX ou (XX) XXXXX-XXXX")]
         public string Telefone { get; set; }
         public string? Cargo { get; set; }
         public string? Empresa { get; set; }
@@ -24,6 +26,7 @@ namespace E_Agenda.WebApp.Models.Contatos
 
     public class CadastrarContatoViewModel : FormularioContatoViewModel
     {
+        public CadastrarContatoViewModel() { }  
         public CadastrarContatoViewModel(string nome, string email, string telefone, string cargo, string empresa)
         {
             Nome = nome;

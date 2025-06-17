@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Extensions\" />
+    <Folder Include="Views\Contato\" />
     <Folder Include="wwwroot\imagens\" />
   </ItemGroup>
 
