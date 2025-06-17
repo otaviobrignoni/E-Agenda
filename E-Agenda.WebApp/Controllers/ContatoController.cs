@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace E_Agenda.WebApp.Controllers
 {
-    [Route("contato")]
+    [Route("contatos")]
     public class ContatoController : Controller
     {
         private readonly ContextoDados contextoDados;
