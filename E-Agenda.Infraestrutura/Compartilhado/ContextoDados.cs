@@ -1,5 +1,6 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Serialization;
+using E_Agenda.Dominio.ModuloCompromissos;
 using E_Agenda.Dominio.ModuloContatos;
 
 namespace E_Agenda.Infraestrutura.Compartilhado;
@@ -9,10 +10,12 @@ public class ContextoDados
     private string arquivoArmazenamento = "dados-controle-bar.json";
 
     public List<Contato> Contatos { get; set; }
+    public List<Compromisso> Compromissos { get; set; }
 
     public ContextoDados()
     {
         Contatos = new List<Contato>();
+        Compromissos = new List<Compromisso>();
     }
 
     public ContextoDados(bool carregarDados) : this()
@@ -61,5 +64,6 @@ public class ContextoDados
         if (contextoArmazenado == null) return;
 
         Contatos = contextoArmazenado.Contatos;
+        Compromissos = contextoArmazenado.Compromissos;
     }
 }

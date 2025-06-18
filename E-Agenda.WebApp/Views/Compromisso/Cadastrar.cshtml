@@ -1,0 +1,89 @@
+﻿@model CadastrarCompromissoViewModel;
+<div class="row justify-content-center my-5">
+    <div class="col-md-8">
+        <div class="card rounded-4 border-0">
+            <div class="card-body p-md-5">
+                <form asp-action="Cadastrar" method="post">
+                    <h3>Formulário de Cadastro</h3>
+
+                    @if (ViewData.ModelState["CadastroUnico"]?.Errors.Count > 0)
+                    {
+                        <div class="alert alert-danger alert-dismissible fade show my-3" role="alert">
+                            @ViewData.ModelState["CadastroUnico"]!.Errors.First().ErrorMessage
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    }
+
+                    <div class="form-group d-grid gap-2 mt-3">
+                        <label asp-for="Assunto" class="control-label fs-5">Assunto:</label>
+                        <input asp-for="Assunto" class="form-control" placeholder="Digite um assunto..."/>
+                        <span asp-validation-for="Assunto" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group d-grid gap-2 mt-3">
+                        <label asp-for="DataOcorrencia" class="control-label fs-5">Data de Ocorrência:</label>
+                        <input asp-for="DataOcorrencia" class="form-control" type="date"/>
+                        <span asp-validation-for="DataOcorrencia" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group d-grid gap-2 mt-3">
+                        <label asp-for="HoraInicio" class="control-label fs-5">Hora de Início:</label>
+                        <input asp-for="HoraInicio" class="form-control" type="time"/>
+                        <span asp-validation-for="HoraInicio" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group d-grid gap-2 mt-3">
+                        <label asp-for="HoraTermino" class="control-label fs-5">Hora de Término:</label>
+                        <input asp-for="HoraTermino" class="form-control" type="time"/>
+                        <span asp-validation-for="HoraTermino" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group d-grid gap-2 mt-3">
+                        <label class="control-label fs-5">Tipo do Compromisso:</label>
+
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" asp-for="Tipo" value="Presencial" id="tipoPresencial"/>
+                            <label class="form-check-label" for="tipoPresencial">Presencial</label>
+                        </div>
+
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" asp-for="Tipo" value="Remoto" id="tipoRemoto"/>
+                            <label class="form-check-label" for="tipoRemoto">Remoto</label>
+                        </div>
+
+                        <span asp-validation-for="Tipo" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group d-grid gap-2 mt-3">
+                        <label id="localOuLinkLabel" class="control-label fs-5">Local:</label>
+                        <input id="localOuLinkInput" name="LocalOuLink" class="form-control" placeholder="Digite um local..."/>
+                        <span asp-validation-for="LocalOuLink" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group d-grid gap-2 mt-3">
+                        <label asp-for="ContatoId" class="control-label fs-5">Contato:</label>
+                        <select asp-for="ContatoId" class="form-select">
+                            <option value="">Sem contato</option>
+                            @foreach (var contato in Model.ContatosDisponiveis)
+                            {
+                                <option value="@contato.Id">@contato.Nome</option>
+                            }
+                        </select>
+                        <span asp-validation-for="ContatoId" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group d-flex align-items-center justify-content-end gap-3 mt-5">
+                        <a href="/compromisso">Voltar para a listagem</a>
+                        <button type="submit" class="btn btn-primary rounded-3 px-5">Confirmar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script src="~/js/selecaoLocalLinkCompromisso.js"></script>
+    <script src="~/js/msgErroLocalLinkCompromisso.js"></script>
+}
