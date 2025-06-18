@@ -18,13 +18,9 @@ public static class CompromissoExtensions
 
     public static Compromisso ParaEntidade(this FormularioComprimissoViewModel formVm, List<Contato> contatos)
     {
-        string localOuLink;
-
-        if (formVm.Tipo == TipoCompromisso.Remoto) localOuLink = formVm.Link!;
-        else localOuLink = formVm.Local!;
         // Procura pelo primeiro registro na lista que satisfaz a condição. Se não encontrar nenhum, retorna null.
         Contato? contatoSelecionado = contatos.FirstOrDefault(c => c.Id == formVm.ContatoId); 
 
-        return new Compromisso(formVm.Assunto, formVm.DataOcorrencia, formVm.HoraInicio, formVm.HoraTermino, formVm.Tipo == TipoCompromisso.Remoto, localOuLink, contatoSelecionado);
+        return new Compromisso(formVm.Assunto, formVm.DataOcorrencia, formVm.HoraInicio, formVm.HoraTermino, formVm.Tipo == TipoCompromisso.Remoto, formVm.LocalOuLink, contatoSelecionado);
     }
 }
