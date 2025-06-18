@@ -7,7 +7,10 @@ public class Categoria : EntidadeBase<Categoria>
     public string Titulo { get; set; }
     public List<Despesa> Despesas { get; set; }
 
-    public Categoria() { }
+    public Categoria() 
+    {
+        Despesas = new();
+    }
 
     public Categoria(string titulo) : this()
     {
