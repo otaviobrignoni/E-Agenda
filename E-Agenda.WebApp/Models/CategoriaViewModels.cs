@@ -73,15 +73,3 @@ public class DetalhesCategoriaViewModel
         Despesas = despesas;
     }
 }
-
-public class SelecionarCategoriaViewModel
-{
-    public Guid Id { get; set; }
-    public string Titulo { get; set; }
-
-    public SelecionarCategoriaViewModel(Guid id, string titulo)
-    {
-        Id = id;
-        Titulo = titulo;
-    }
-}
