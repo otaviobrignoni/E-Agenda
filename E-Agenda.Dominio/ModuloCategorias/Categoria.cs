@@ -9,7 +9,7 @@ public class Categoria : EntidadeBase<Categoria>
 
     public Categoria() { }
 
-    public Categoria(string titulo)
+    public Categoria(string titulo) : this()
     {
         Id = Guid.NewGuid();
         Titulo = titulo;
