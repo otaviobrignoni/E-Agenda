@@ -109,6 +109,7 @@ public class CategoriaController : Controller
     public IActionResult ExcluirConfirmado(Guid id)
     {
         var registros = repositorioCategoria.ObterTodos();
+
         foreach (var item in registros)
         {
             if (item.Despesas.Count != 0)
@@ -117,6 +118,7 @@ public class CategoriaController : Controller
                 break;
             }
         }
+
         repositorioCategoria.Excluir(id);
 
         return RedirectToAction(nameof(Index));
