@@ -1,1 +1,103 @@
-﻿
+﻿:root {
+    --fundo: #E8E9F3;
+    --fundo-card: #CECECE;
+    --borda: #A6A6A8;
+    --texto: #272635;
+    --navbar: #2E4057;
+}
+
+body {
+    background-color: var(--fundo);
+    color: var(--texto);
+    font-family: 'Nunito', Arial, sans-serif;
+}
+
+
+.sidebar {
+    width: 72px;
+    height: 100vh;
+    background: var(--navbar);
+    border-right: 1px solid #dee2e6;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1030;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+    .sidebar .nav-link {
+        color: var(--fundo);
+        font-size: 1.8rem;
+        text-align: center;
+        border-radius: 13px;
+        margin: 0px 6px;
+        padding: 6px;
+    }
+
+        .sidebar .nav-link.active, .sidebar .nav-link:hover {
+            background: var(--borda);
+            color: var(--texto);         
+        }
+
+
+.main-content {
+    width: calc(100% - 72px);
+    margin-left: 72px;
+}
+
+/* mobile */
+.bottom-bar {
+    background: var(--navbar);
+    height: 62px;
+    box-shadow: 0 -1px 4px rgba(0,0,0,.05);
+}
+
+    .bottom-bar .nav-link {
+        color: var(--fundo);
+        font-size: 1.6rem;
+        text-align: center;
+    }
+
+        .bottom-bar .nav-link.active, .bottom-bar .nav-link:hover {
+            color: var(--texto);
+            background: var(--borda);
+            border-radius: 13px;
+        }
+
+.custom-navbar {
+    position: fixed;
+    top: 0;
+    left: 71px;
+    width: calc(100% - 71px);
+    z-index: 1040;
+    background: var(--navbar);
+    color: var(--texto);
+}
+
+.card-home {
+    color: var(--texto);
+    background: var(--fundo-card);
+}
+
+@media (max-width: 767.98px) {
+
+    .custom-navbar {
+        left: 0;
+        width: 100%;
+    }
+
+    .main-content {
+        width: 100%;
+        margin-left: 0;
+        margin-bottom: 62px;
+        margin-top: 68px;
+    }
+}
+
+@media (min-width: 768px) {
+    .main-content {
+        margin-top: 68px; /* para empurrar conteúdo abaixo da navbar */
+    }
+}

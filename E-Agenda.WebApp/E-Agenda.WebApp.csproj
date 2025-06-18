@@ -9,7 +9,11 @@
 
   <ItemGroup>
     <Folder Include="Extensions\" />
-    <Folder Include="wwwroot\imagens\" />
+    <Folder Include="Views\Contato\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\imagens\icone.svg" />
   </ItemGroup>
 
   <ItemGroup>
