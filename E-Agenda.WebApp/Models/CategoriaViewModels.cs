@@ -11,7 +11,6 @@ public class FormularioCategoriaViewModel
     [MinLength(2, ErrorMessage = "O campo \"Título\" precisa ter no mínimo 2 caracteres.")]
     [MaxLength(100, ErrorMessage = "O campo \"Título\" precisa ter no máximo 100 caracteres.")]
     public string Titulo { get; set; }
-    public List<Despesa> Despesas { get; set; }
 }
 
 public class CadastrarCategoriaViewModel : FormularioCategoriaViewModel
