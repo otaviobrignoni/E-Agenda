@@ -9,7 +9,7 @@ namespace E_Agenda.Infraestrutura.Compartilhado;
 public class ContextoDados
 {
     private string pastaArmazenamento = "C:\\temp";
-    private string arquivoArmazenamento = "dados-controle-bar.json";
+    private string arquivoArmazenamento = "dados-e_agenda.json";
 
     public List<Contato> Contatos { get; set; }
     public List<Compromisso> Compromissos { get; set; }

@@ -3,6 +3,7 @@ using E_Agenda.Dominio.ModuloDespesas;
 using E_Agenda.WebApp.Extensions;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.ComponentModel.DataAnnotations;
+using System.Net;
 using static E_Agenda.Dominio.ModuloDespesas.Despesa;
 
 namespace E_Agenda.WebApp.Models;
@@ -21,25 +22,39 @@ public class FormularioDespesaViewModel
     [Required(ErrorMessage = "O campo \"Forma de Pagamento\" é obrigatório.")]
     public TipoPagamento FormaPagamento { get; set; }
 
-    [Required(ErrorMessage = "O campo \"Categorias\" é obrigatório.")]
+    [Required(ErrorMessage = "Selecione pelo menos uma categoria.")]
+    public List<Guid> CategoriasSelecionadas { get; set; }
+
     public List<SelectListItem> CategoriasDisponiveis { get; set; }
 }
 
 public class CadastrarDespesaViewModel : FormularioDespesaViewModel
 {
-    public CadastrarDespesaViewModel() 
+    public CadastrarDespesaViewModel()
     {
+        CategoriasSelecionadas = new();
         CategoriasDisponiveis = new();
+
     }
 
-    public CadastrarDespesaViewModel(string descricao, DateOnly dataOcorrencia, decimal valor, TipoPagamento formaPagamento, List<Categoria> categorias)
+    public CadastrarDespesaViewModel(List<Categoria> categorias) : this()
+    {
+        foreach (var c in categorias)
+        {
+            var categoriaDisponivel = new SelectListItem(c.Titulo, c.Id.ToString());
+            CategoriasDisponiveis.Add(categoriaDisponivel);
+        }
+    }
+
+
+    public CadastrarDespesaViewModel(string descricao, DateOnly dataOcorrencia, decimal valor, TipoPagamento formaPagamento, List<Categoria> categorias) : this()
     {
         Descricao = descricao;
         DataOcorrencia = dataOcorrencia;
         Valor = valor;
         FormaPagamento = formaPagamento;
 
-        foreach (var c in categorias) 
+        foreach (var c in categorias)
         {
             var categoriaDisponivel = new SelectListItem(c.Titulo, c.Id.ToString());
             CategoriasDisponiveis.Add(categoriaDisponivel);
@@ -53,10 +68,11 @@ public class EditarDespesaViewModel : FormularioDespesaViewModel
     public Guid Id { get; set; }
     public EditarDespesaViewModel()
     {
+        CategoriasSelecionadas = new();
         CategoriasDisponiveis = new();
     }
 
-    public EditarDespesaViewModel(Guid id, string descricao, DateOnly dataOcorrencia, decimal valor, TipoPagamento formaPagamento, List<Categoria> categorias)
+    public EditarDespesaViewModel(Guid id, string descricao, DateOnly dataOcorrencia, decimal valor, TipoPagamento formaPagamento, List<Categoria> categorias) : this()
     {
         Id = id;
         Descricao = descricao;
@@ -87,10 +103,10 @@ public class ExcluirDespesaViewModel
 public class VisualizarDespesaViewModel
 {
     public List<DetalhesDespesaViewModel> Registros { get; set; }
-    public VisualizarDespesaViewModel(List<Despesa> despesas) 
+    public VisualizarDespesaViewModel(List<Despesa> despesas)
     {
         Registros = new();
-        foreach(var d in despesas)
+        foreach (var d in despesas)
         {
             Registros.Add(d.ParaVM());
         }
@@ -114,9 +130,4 @@ public class DetalhesDespesaViewModel
         FormaPagamento = formaPagamento;
         Categorias = categorias;
     }
-}
-
-public class AdicionarCategoriaViewModel 
-{
-    public Guid IdCategoria { get; set; }
 }

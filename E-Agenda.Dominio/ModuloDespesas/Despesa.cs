@@ -12,16 +12,17 @@ public class Despesa : EntidadeBase<Despesa>
     
     public Despesa()
     {
-         Categorias = new();
+        Categorias = new();
     }
 
-    public Despesa(string descricao, DateOnly dataOcorrencia, decimal valor, TipoPagamento formaPagamento) : this()
+    public Despesa(string descricao, DateOnly dataOcorrencia, decimal valor, TipoPagamento formaPagamento, List<Categoria> categorias) : this()
     {
         Id = Guid.NewGuid();
         Descricao = descricao;
         DataOcorrencia = dataOcorrencia;
         Valor = valor;
         FormaPagamento = formaPagamento;
+        Categorias = categorias ?? new List<Categoria>();
     }
 
     public override void Atualizar(Despesa registroEditado)

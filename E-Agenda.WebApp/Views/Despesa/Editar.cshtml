@@ -1,0 +1,85 @@
+﻿@using static E_Agenda.Dominio.ModuloDespesas.Despesa
+@model EditarDespesaViewModel
+
+<form asp-action="Editar" method="post">
+
+    @if (ViewData.ModelState["CadastroUnico"]?.Errors.Count > 0)
+    {
+        <div class="alert alert-danger alert-dismissible fade show my-3" role="alert">
+            @ViewData.ModelState["CadastroUnico"]!.Errors.First().ErrorMessage
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    <input type="hidden" asp-for="Id" />
+
+    <div class="form-group d-grid gap-2 mt-3">
+        <label asp-for="Descricao" class="control-label fs-5">Descrição:</label>
+        <input asp-for="Descricao" class="form-control" placeholder="Digite uma descrição..." />
+        <span asp-validation-for="Descricao" class="text-danger"></span>
+    </div>
+
+    <div class="form-group d-grid gap-2 mt-3">
+        <label asp-for="DataOcorrencia" class="control-label fs-5">Data de Ocorrência:</label>
+        <input asp-for="DataOcorrencia" class="form-control" type="date" />
+        <span asp-validation-for="DataOcorrencia" class="text-danger"></span>
+    </div>
+
+    <div class="form-group d-grid gap-2 mt-3">
+        <label asp-for="Valor" class="control-label fs-5">Valor:</label>
+        <input asp-for="Valor" type="number" min="0" step="0.01" pattern="^\d+(?:\,\d{1,2})?$" class="form-control" />
+        <span asp-validation-for="Valor" class="text-danger"></span>
+    </div>
+
+    <div class="form-group d-grid gap-2 mt-3">
+        <label>Forma de Pagamento</label><br />
+
+        @foreach (TipoPagamento tipo in Enum.GetValues(typeof(TipoPagamento)))
+        {
+            var isChecked = Model.FormaPagamento == tipo;
+            var checkedAttribute = isChecked ? "checked" : "";
+
+            <div class="form-check form-check-inline">
+                <input name="FormaPagamento"
+                       type="radio"
+                       class="form-check-input"
+                       value="@tipo"
+                       @checkedAttribute />
+
+                <label class="form-check-label">
+                    @tipo
+                </label>
+            </div>
+        }
+
+        <span asp-validation-for="FormaPagamento" class="text-danger"></span>
+    </div>
+
+    <div class="form-group gap-2 mt-3">
+        <label>Categorias</label><br />
+        @foreach (var categoria in Model.CategoriasDisponiveis)
+        {
+            var isChecked = Model.CategoriasSelecionadas.Contains(Guid.Parse(categoria.Value));
+            var checkedAttribute = isChecked ? "checked" : "";
+
+            <div class="form-check">
+                <input name="CategoriasSelecionadas"
+                       type="checkbox"
+                       class="form-check-input"
+                       value="@categoria.Value"
+                       @checkedAttribute />
+
+                <label class="form-check-label">
+                    @categoria.Text
+                </label>
+            </div>
+        }
+    </div>
+
+    <button type="submit">Salvar Alterações</button>
+
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
