@@ -5,6 +5,8 @@ public class HomeController : Controller
 {
     public IActionResult Index()
     {
-        return View();
+        ViewBag.Title = "Página Inicial";
+        ViewBag.Header = "Bem-vindo a e-Agenda";
+        return View(); 
     }
 }
