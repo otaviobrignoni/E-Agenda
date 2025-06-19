@@ -26,6 +26,9 @@ public class CompromissoController : Controller
     [HttpGet]
     public IActionResult Index()
     {
+        ViewBag.Title = "Compromissos";
+        ViewBag.Header = "Visualizando Compromissos";
+
         var registros = repositorioCompromisso.ObterTodos();
 
         var visualizarVM = new VisualizarCompromissoViewModel(registros);
@@ -36,6 +39,9 @@ public class CompromissoController : Controller
     [HttpGet("cadastrar")]
     public IActionResult Cadastrar()
     {
+        ViewBag.Title = "Compromissos | Cadastrar";
+        ViewBag.Header = "Cadastro de Compromisso";
+
         var contatos = repositorioContato.ObterTodos();
         var cadastrarVM = new CadastrarCompromissoViewModel(contatos);
 
@@ -46,6 +52,9 @@ public class CompromissoController : Controller
     [ValidateAntiForgeryToken]
     public IActionResult Cadastrar(CadastrarCompromissoViewModel cadastrarVM)
     {
+        ViewBag.Title = "Compromissos | Cadastrar";
+        ViewBag.Header = "Cadastro de Compromisso";
+
         var registros = repositorioCompromisso.ObterTodos();
 
         foreach (var item in registros)
@@ -72,6 +81,9 @@ public class CompromissoController : Controller
     [HttpGet("editar/{id:guid}")]
     public IActionResult Editar(Guid id)
     {
+        ViewBag.Title = "Compromissos | Editar";
+        ViewBag.Header = "Edição de Compromisso";
+
         var registroSelecionado = repositorioCompromisso.ObterPorId(id);
 
         var contatos = repositorioContato.ObterTodos();
@@ -89,6 +101,9 @@ public class CompromissoController : Controller
     [ValidateAntiForgeryToken]
     public IActionResult Editar(Guid id, EditarCompromissoViewModel editarVM)
     {
+        ViewBag.Title = "Compromissos | Editar";
+        ViewBag.Header = "Edição de Compromisso";
+
         var registros = repositorioCompromisso.ObterTodos();
         var contatos = repositorioContato.ObterTodos();
 
@@ -114,6 +129,9 @@ public class CompromissoController : Controller
     [HttpGet("excluir/{id:guid}")]
     public IActionResult Excluir(Guid id)
     {
+        ViewBag.Title = "Compromissos | Excluir";
+        ViewBag.Header = "Exclusão de Compromisso";
+
         var registroSelecionado = repositorioCompromisso.ObterPorId(id);
 
         var excluirVM = new ExcluirCompromissoViewModel(registroSelecionado.Id, registroSelecionado.Assunto);
@@ -124,9 +142,11 @@ public class CompromissoController : Controller
     [HttpPost("excluir/{id:guid}")]
     public IActionResult ExcluirConfirmado(Guid id)
     {
+        ViewBag.Title = "Compromissos | Excluir";
+        ViewBag.Header = "Exclusão de Compromisso";
+
         repositorioCompromisso.Excluir(id);
 
         return RedirectToAction(nameof(Index));
     }
-
 }
