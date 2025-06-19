@@ -8,7 +8,6 @@
     </a>
 </p>
 
-<hr />
 
 <div class="d-flex flex-wrap gap-2">
     @foreach (var item in Model.Registros)
@@ -20,12 +19,10 @@
                     <p class="card-text"><span class="fw-semibold">Nome:</span> @item.Nome</p>
 
                     <span class="d-flex gap-1 justify-content-end mt-4">
-                        <a href="/contatos/@item.Id" class="btn btn-secondary rounded-circle opcao-card">
-                            <i class="bi bi-search"></i>
-                        </a>
                         <a href="/contatos/editar/@item.Id" class="btn btn-primary rounded-circle opcao-card">
                             <i class="bi bi-pencil-square"></i>
                         </a>
+
                         <a href="/contatos/excluir/@item.Id" class="btn btn-danger rounded-circle opcao-card">
                             <i class="bi bi-trash"></i>
                         </a>
