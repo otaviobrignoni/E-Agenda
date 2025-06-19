@@ -20,6 +20,9 @@ public class CategoriaController : Controller
     }
     public IActionResult Index()
     {
+        ViewBag.Title = "Categorias";
+        ViewBag.Header = "Visualizando Categorias";
+
         var registros = repositorioCategoria.ObterTodos();
 
         var visualizarVM = new VisualizarCategoriaViewModel(registros);
@@ -30,6 +33,9 @@ public class CategoriaController : Controller
     [HttpGet("cadastrar")]
     public IActionResult Cadastrar()
     {
+        ViewBag.Title = "Categorias | Cadastrar";
+        ViewBag.Header = "Cadastro de Categoria";
+
         var cadastrarVM = new CadastrarCategoriaViewModel();
 
         return View(cadastrarVM);
@@ -39,6 +45,9 @@ public class CategoriaController : Controller
     [ValidateAntiForgeryToken]
     public IActionResult Cadastrar(CadastrarCategoriaViewModel cadastrarVM)
     {
+        ViewBag.Title = "Categorias | Cadastrar";
+        ViewBag.Header = "Cadastro de Categoria";
+
         var registros = repositorioCategoria.ObterTodos();
 
         foreach (var item in registros)
@@ -62,6 +71,9 @@ public class CategoriaController : Controller
     [HttpGet("editar/{id:guid}")]
     public ActionResult Editar(Guid id)
     {
+        ViewBag.Title = "Categorias | Editar";
+        ViewBag.Header = "Edição de Categoria";
+
         var registroSelecionado = repositorioCategoria.ObterPorId(id);
 
         var editarVM = new EditarCategoriaViewModel(id, registroSelecionado.Titulo);
@@ -73,6 +85,9 @@ public class CategoriaController : Controller
     [ValidateAntiForgeryToken]
     public ActionResult Editar(Guid id, EditarCategoriaViewModel editarVM)
     {
+        ViewBag.Title = "Categorias | Editar";
+        ViewBag.Header = "Edição de Categoria";
+
         var registros = repositorioCategoria.ObterTodos();
 
         foreach (var item in registros)
@@ -96,6 +111,9 @@ public class CategoriaController : Controller
     [HttpGet("excluir/{id:guid}")]
     public IActionResult Excluir(Guid id)
     {
+        ViewBag.Title = "Categorias | Excluir";
+        ViewBag.Header = "Exclusão de Categoria";
+
         var registroSelecionado = repositorioCategoria.ObterPorId(id);
 
         var excluirVM = new ExcluirCategoriaViewModel(registroSelecionado.Id, registroSelecionado.Titulo);
@@ -107,6 +125,9 @@ public class CategoriaController : Controller
     [ValidateAntiForgeryToken]
     public IActionResult ExcluirConfirmado(Guid id)
     {
+        ViewBag.Title = "Categorias | Excluir";
+        ViewBag.Header = "Exclusão de Categoria";
+
         var registros = repositorioCategoria.ObterTodos();
 
         foreach (var item in registros)
@@ -126,6 +147,9 @@ public class CategoriaController : Controller
     [HttpGet("detalhes/{id:guid}")]
     public IActionResult Detalhes(Guid id)
     {
+        ViewBag.Title = "Categorias | Detalhes";
+        ViewBag.Header = "Detalhes da Categoria";
+
         var registroSelecionado = repositorioCategoria.ObterPorId(id);
 
         var detalhesVM = new DetalhesCategoriaViewModel(id, registroSelecionado.Titulo, registroSelecionado.Despesas);
