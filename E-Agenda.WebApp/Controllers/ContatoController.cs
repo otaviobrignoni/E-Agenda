@@ -72,11 +72,8 @@ namespace E_Agenda.WebApp.Controllers
         {
             var registros = repositorioContato.ObterPorId(id);
 
-            if (registros == null)
-                return NotFound();
-
             var editarVM = new EditarContatoViewModel(
-                registros.Id,
+                id,
                 registros.Nome,
                 registros.Email,
                 registros.Telefone,
@@ -123,29 +120,20 @@ namespace E_Agenda.WebApp.Controllers
         [HttpGet("excluir/{id:guid}")]
         public IActionResult Excluir(Guid id)
         {
-            var registros = repositorioContato.ObterPorId(id);
+            var registroSelecionado = repositorioContato.ObterPorId(id);
 
-            var excluirVM = new ExcluirContatoViewModel(registros.Id, registros.Nome);
+            var excluirVM = new ExcluirContatoViewModel(registroSelecionado.Id, registroSelecionado.Nome);
 
             return View(excluirVM);
         }
 
         [HttpPost("excluir/{id:guid}")]
-        public IActionResult ExcluirConfirmado(Guid id)
+        [ValidateAntiForgeryToken]
+        public IActionResult ExcluirConfirmado(Guid id) //Adicionar validação de exclusão do enunciado "Não permitir excluir um contato caso tenha compromissos vinculados"
         {
             repositorioContato.Excluir(id);
 
             return RedirectToAction(nameof(Index));
-        }
-
-        [HttpGet("visualizar/{id:guid}")]
-        public IActionResult Visualizar(Guid id)
-        {
-            var registros = repositorioContato.ObterPorId(id);
-
-            var detalhesVM = new DetalhesContatoViewModel(id, registros.Nome, registros.Email, registros.Telefone, registros.Cargo, registros.Empresa);
-            
-            return View(detalhesVM);
         }
     }
 }
