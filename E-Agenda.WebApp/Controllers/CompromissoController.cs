@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace E_Agenda.WebApp.Controllers;
 
-[Route("compromisso")]
+[Route("compromissos")]
 public class CompromissoController : Controller
 {
     private readonly ContextoDados contexto;

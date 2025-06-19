@@ -4,11 +4,10 @@ using E_Agenda.Infraestrutura.ModuloCategorias;
 using E_Agenda.WebApp.Extensions;
 using E_Agenda.WebApp.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Win32;
 
 namespace E_Agenda.WebApp.Controllers;
 
-[Route("categoria")]
+[Route("categorias")]
 public class CategoriaController : Controller
 {
     private readonly ContextoDados contexto;
