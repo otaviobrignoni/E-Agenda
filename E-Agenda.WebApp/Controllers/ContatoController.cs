@@ -21,6 +21,9 @@ namespace E_Agenda.WebApp.Controllers
 
         public IActionResult Index()
         {
+            ViewBag.Title = "Contatos";
+            ViewBag.Header = "Visualizando Contatos";
+
             var registros = repositorioContato.ObterTodos();
 
             var visualizarVM = new VisualizarContatoViewModel(registros);
@@ -31,6 +34,9 @@ namespace E_Agenda.WebApp.Controllers
         [HttpGet("cadastrar")]
         public IActionResult Cadastrar()
         {
+            ViewBag.Title = "Contatos | Cadastrar";
+            ViewBag.Header = "Cadastro de Contato";
+
             var cadastrarVM = new CadastrarContatoViewModel();
 
             return View(cadastrarVM);
@@ -41,6 +47,9 @@ namespace E_Agenda.WebApp.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Cadastrar(CadastrarContatoViewModel cadastrarVM)
         {
+            ViewBag.Title = "Contatos | Cadastrar";
+            ViewBag.Header = "Cadastro de Contato";
+
             var registros = repositorioContato.ObterTodos();
 
             foreach (var item in registros)
@@ -70,6 +79,9 @@ namespace E_Agenda.WebApp.Controllers
         [HttpGet("editar/{id}")]
         public IActionResult Editar(Guid id)
         {
+            ViewBag.Title = "Contatos | Editar";
+            ViewBag.Header = "Edição de Contato";
+
             var registros = repositorioContato.ObterPorId(id);
 
             var editarVM = new EditarContatoViewModel(
@@ -88,6 +100,9 @@ namespace E_Agenda.WebApp.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Editar(Guid id, EditarContatoViewModel editarVM)
         {
+            ViewBag.Title = "Contatos | Editar";
+            ViewBag.Header = "Edição de Contato";
+
             var registros = repositorioContato.ObterTodos();
 
             foreach (var item in registros)
@@ -120,6 +135,9 @@ namespace E_Agenda.WebApp.Controllers
         [HttpGet("excluir/{id:guid}")]
         public IActionResult Excluir(Guid id)
         {
+            ViewBag.Title = "Contatos | Excluir";
+            ViewBag.Header = "Exclusão de Contato";
+
             var registroSelecionado = repositorioContato.ObterPorId(id);
 
             var excluirVM = new ExcluirContatoViewModel(registroSelecionado.Id, registroSelecionado.Nome);
@@ -131,6 +149,9 @@ namespace E_Agenda.WebApp.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult ExcluirConfirmado(Guid id) //Adicionar validação de exclusão do enunciado "Não permitir excluir um contato caso tenha compromissos vinculados"
         {
+            ViewBag.Title = "Contatos | Excluir";
+            ViewBag.Header = "Exclusão de Contato";
+
             repositorioContato.Excluir(id);
 
             return RedirectToAction(nameof(Index));
