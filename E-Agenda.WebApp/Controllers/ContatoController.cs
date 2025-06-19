@@ -17,8 +17,8 @@ namespace E_Agenda.WebApp.Controllers
         {
             contextoDados = new ContextoDados(true);
             repositorioContato = new RepositorioContato(contextoDados);
-
         }
+
         public IActionResult Index()
         {
             var registros = repositorioContato.ObterTodos();
@@ -32,6 +32,7 @@ namespace E_Agenda.WebApp.Controllers
         public IActionResult Cadastrar()
         {
             var cadastrarVM = new CadastrarContatoViewModel();
+
             return View(cadastrarVM);
         }
 
@@ -41,9 +42,9 @@ namespace E_Agenda.WebApp.Controllers
         public IActionResult Cadastrar(CadastrarContatoViewModel cadastrarVM)
         {
             var registros = repositorioContato.ObterTodos();
+
             foreach (var item in registros)
             {
-
                 if (item.Email.Equals(cadastrarVM.Email))
                 {
                     ModelState.AddModelError("CadastroUnico", "Já existe um contato registrado com este email.");
@@ -54,8 +55,8 @@ namespace E_Agenda.WebApp.Controllers
                     ModelState.AddModelError("CadastroUnico", "Já existe um contato registrado com este telefone.");
                     break;
                 }
-
             }
+
             if (!ModelState.IsValid)
                 return View(cadastrarVM);
 
@@ -64,14 +65,16 @@ namespace E_Agenda.WebApp.Controllers
             repositorioContato.Cadastrar(entidade);
 
             return RedirectToAction(nameof(Index));
-
         }
+
         [HttpGet("editar/{id}")]
         public IActionResult Editar(Guid id)
         {
             var registros = repositorioContato.ObterPorId(id);
+
             if (registros == null)
                 return NotFound();
+
             var editarVM = new EditarContatoViewModel(
                 registros.Id,
                 registros.Nome,
@@ -80,15 +83,16 @@ namespace E_Agenda.WebApp.Controllers
                 registros.Cargo,
                 registros.Empresa
             );
+
             return View(editarVM);
         }
-
 
         [HttpPost("editar/{id:guid}")]
         [ValidateAntiForgeryToken]
         public ActionResult Editar(Guid id, EditarContatoViewModel editarVM)
         {
             var registros = repositorioContato.ObterTodos();
+
             foreach (var item in registros)
             {
                 
@@ -97,14 +101,14 @@ namespace E_Agenda.WebApp.Controllers
                     ModelState.AddModelError("CadastroUnico", "Já existe um contato registrado com este email.");
                     break;
                 }
+
                 if (item.Id.Equals(editarVM.Telefone) && !item.Id.Equals(id))
                 {
                     ModelState.AddModelError("CadastroUnico", "Já existe um contato registrado com este telefone.");
                     break;
-                }
-                
-
+                }        
             }
+
             if (!ModelState.IsValid)
                 return View(editarVM);
 
@@ -122,19 +126,25 @@ namespace E_Agenda.WebApp.Controllers
             var registros = repositorioContato.ObterPorId(id);
 
             var excluirVM = new ExcluirContatoViewModel(registros.Id, registros.Nome);
+
             return View(excluirVM);
         }
+
         [HttpPost("excluir/{id:guid}")]
         public IActionResult ExcluirConfirmado(Guid id)
         {
             repositorioContato.Excluir(id);
+
             return RedirectToAction(nameof(Index));
         }
+
         [HttpGet("visualizar/{id:guid}")]
         public IActionResult Visualizar(Guid id)
         {
             var registros = repositorioContato.ObterPorId(id);
+
             var detalhesVM = new DetalhesContatoViewModel(id, registros.Nome, registros.Email, registros.Telefone, registros.Cargo, registros.Empresa);
+            
             return View(detalhesVM);
         }
     }
