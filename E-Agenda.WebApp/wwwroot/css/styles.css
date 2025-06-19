@@ -73,11 +73,6 @@ body {
     color: var(--texto);
 }
 
-.card-home {
-    color: var(--texto);
-    background: var(--fundo-card);
-}
-
 .carousel-item img {
     width: 100%;
     height: 100%;
