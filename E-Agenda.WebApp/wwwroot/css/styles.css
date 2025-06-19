@@ -3,7 +3,7 @@
     --fundo-card: #CECECE;
     --borda: #A6A6A8;
     --texto: #272635;
-    --navbar: #2E4057;
+    --navbar: #172747;
 }
 
 body {
@@ -12,12 +12,16 @@ body {
     font-family: 'Nunito', Arial, sans-serif;
 }
 
+.main-content {
+    width: calc(100% - 72px);
+    margin-left: 72px;
+    flex: 1 0 auto;
+}
 
 .sidebar {
     width: 72px;
     height: 100vh;
     background: var(--navbar);
-    border-right: 1px solid #dee2e6;
     position: fixed;
     top: 0;
     left: 0;
@@ -41,17 +45,10 @@ body {
             color: var(--texto);         
         }
 
-
-.main-content {
-    width: calc(100% - 72px);
-    margin-left: 72px;
-}
-
 /* mobile */
 .bottom-bar {
     background: var(--navbar);
     height: 62px;
-    box-shadow: 0 -1px 4px rgba(0,0,0,.05);
 }
 
     .bottom-bar .nav-link {
@@ -81,6 +78,21 @@ body {
     background: var(--fundo-card);
 }
 
+.carousel-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.carousel-item {
+    height: 260px;
+}
+
+.icones-main {
+    font-size: 5rem;
+    color: var(--navbar);
+}
+
 @media (max-width: 767.98px) {
 
     .custom-navbar {
@@ -92,12 +104,22 @@ body {
         width: 100%;
         margin-left: 0;
         margin-bottom: 62px;
-        margin-top: 68px;
+        margin-top: 66px;
     }
 }
 
 @media (min-width: 768px) {
     .main-content {
-        margin-top: 68px; /* para empurrar conteúdo abaixo da navbar */
+        margin-top: 51px;
+    }
+
+    .carousel-item {
+        height: 400px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .carousel-item {
+        height: 670px;
     }
 }
