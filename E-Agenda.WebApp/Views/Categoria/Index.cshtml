@@ -1,0 +1,34 @@
+﻿@model VisualizarCategoriaViewModel
+
+<div class="d-flex flex-wrap gap-2">
+    @foreach (var item in Model.Registros)
+    {
+        <div class="col-12 col-md-3">
+            <div class="card border-0">
+                <div class="card-body">
+                    <h5 class="card-title">Categoria: @item.Titulo</h5>
+                    <p class="card-text"><span class="fw-semibold">Titulo:</span> @item.Titulo</p>
+
+                    <span class="d-flex gap-1 justify-content-end mt-4">
+                        <a href="/categoria/detalhes/@item.Id" class="btn btn-secondary rounded-circle opcao-card">
+                            <i class="bi bi-search"></i>
+                        </a>
+                        <a href="/categoria/editar/@item.Id" class="btn btn-primary rounded-circle opcao-card">
+                            <i class="bi bi-pencil-square"></i>
+                        </a>
+                        <a href="/categoria/excluir/@item.Id" class="btn btn-danger rounded-circle opcao-card">
+                            <i class="bi bi-trash"></i>
+                        </a>
+                    </span>
+                </div>
+            </div>
+        </div>
+    }
+    <div class="col-12 col-md-3">
+        <div class="card border-0">
+            <div class="card-body">
+                <a href="/categoria/cadastrar">+</a>
+            </div>
+        </div>
+    </div>
+</div>

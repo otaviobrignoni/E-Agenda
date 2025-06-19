@@ -8,6 +8,8 @@ using E_Agenda.WebApp.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace E_Agenda.WebApp.Controllers;
+
+[Route("compromisso")]
 public class CompromissoController : Controller
 {
     private readonly ContextoDados contexto;
@@ -31,7 +33,7 @@ public class CompromissoController : Controller
         return View(visualizarVM);
     }
 
-    [HttpGet]
+    [HttpGet("cadastrar")]
     public IActionResult Cadastrar()
     {
         var contatos = repositorioContato.ObterTodos();
@@ -40,7 +42,7 @@ public class CompromissoController : Controller
         return View(cadastrarVM);
     }
 
-    [HttpPost]
+    [HttpPost("cadastrar")]
     [ValidateAntiForgeryToken]
     public IActionResult Cadastrar(CadastrarCompromissoViewModel cadastrarVM)
     {
@@ -67,7 +69,7 @@ public class CompromissoController : Controller
         return RedirectToAction(nameof(Index));
     }
 
-    [HttpGet]
+    [HttpGet("editar/{id:guid}")]
     public IActionResult Editar(Guid id)
     {
         var registroSelecionado = repositorioCompromisso.ObterPorId(id);
@@ -83,7 +85,7 @@ public class CompromissoController : Controller
         return View(editarVM);
     }
 
-    [HttpPost]
+    [HttpPost("editar/{id:guid}")]
     [ValidateAntiForgeryToken]
     public IActionResult Editar(Guid id, EditarCompromissoViewModel editarVM)
     {
@@ -109,7 +111,7 @@ public class CompromissoController : Controller
         return RedirectToAction(nameof(Index));
     }
 
-    [HttpGet]
+    [HttpGet("excluir/{id:guid}")]
     public IActionResult Excluir(Guid id)
     {
         var registroSelecionado = repositorioCompromisso.ObterPorId(id);
@@ -119,7 +121,7 @@ public class CompromissoController : Controller
         return View(excluirVM);
     }
 
-    [HttpPost("compromisso/excluir/{id:guid}")]
+    [HttpPost("excluir/{id:guid}")]
     public IActionResult ExcluirConfirmado(Guid id)
     {
         repositorioCompromisso.Excluir(id);
