@@ -23,8 +23,12 @@ public class DespesaController : Controller
         repositorioDespesa = new RepositorioDespesa(contexto);
         repositorioCategoria = new RepositorioCategoria(contexto);
     }
+
     public IActionResult Index()
     {
+        ViewBag.Title = "Despesas";
+        ViewBag.Header = "Visualizando Despesa";
+
         var registros = repositorioDespesa.ObterTodos();
 
         var visualizarVM = new VisualizarDespesaViewModel(registros);
@@ -35,6 +39,9 @@ public class DespesaController : Controller
     [HttpGet("cadastrar")]
     public IActionResult Cadastrar()
     {
+        ViewBag.Title = "Despesas | Cadastrar";
+        ViewBag.Header = "Cadastro de Despesa";
+
         var categorias = repositorioCategoria.ObterTodos();
 
         var cadastrarVM = new CadastrarDespesaViewModel(categorias);
@@ -46,6 +53,9 @@ public class DespesaController : Controller
     [ValidateAntiForgeryToken]
     public IActionResult Cadastrar(CadastrarDespesaViewModel cadastrarVM)
     {
+        ViewBag.Title = "Despesas | Cadastrar";
+        ViewBag.Header = "Cadastro de Despesa";
+
         var registros = repositorioDespesa.ObterTodos();
 
         foreach (var item in registros)
@@ -79,6 +89,9 @@ public class DespesaController : Controller
     [HttpGet("editar/{id:guid}")]
     public IActionResult Editar(Guid id)
     {
+        ViewBag.Title = "Despesas | Editar";
+        ViewBag.Header = "Edição de Despesa";
+
         var registroSelecionado = repositorioDespesa.ObterPorId(id);
 
         var editarVM = new EditarDespesaViewModel(id, registroSelecionado.Descricao, registroSelecionado.DataOcorrencia, registroSelecionado.Valor, registroSelecionado.FormaPagamento, registroSelecionado.Categorias);
@@ -90,6 +103,9 @@ public class DespesaController : Controller
     [ValidateAntiForgeryToken]
     public IActionResult Editar(Guid id, EditarDespesaViewModel editarVM)
     {
+        ViewBag.Title = "Despesas | Editar";
+        ViewBag.Header = "Edição de Despesa";
+
         var registros = repositorioDespesa.ObterTodos();
 
         foreach (var item in registros)
@@ -122,6 +138,9 @@ public class DespesaController : Controller
     [HttpGet("excluir/{id:guid}")]
     public IActionResult Excluir(Guid id)
     {
+        ViewBag.Title = "Despesas | Excluir";
+        ViewBag.Header = "Exclusão de Despesa";
+
         var registroSelecionado = repositorioDespesa.ObterPorId(id);
 
         var excluirVM = new ExcluirDespesaViewModel(registroSelecionado.Id, registroSelecionado.Descricao);
@@ -130,8 +149,12 @@ public class DespesaController : Controller
     }
 
     [HttpPost("excluir/{id:guid}")]
+    [ValidateAntiForgeryToken]
     public IActionResult ExcluirConfirmado(Guid id)
     {
+        ViewBag.Title = "Despesas | Excluir";
+        ViewBag.Header = "Exclusão de Despesa";
+
         repositorioDespesa.Excluir(id);
 
         return RedirectToAction(nameof(Index));
