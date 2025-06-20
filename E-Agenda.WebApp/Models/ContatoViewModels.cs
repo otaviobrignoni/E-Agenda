@@ -6,20 +6,20 @@ namespace E_Agenda.WebApp.Models;
 
 public class FormularioContatoViewModel
 {
-
     [Required(ErrorMessage = "O campo \"Nome\" é obrigatório.")]
     [MinLength(3, ErrorMessage = "O campo \"Nome\" precisa conter ao menos 3 caracteres.")]
     [MaxLength(100, ErrorMessage = "O campo \"Nome\" precisa conter no máximo 100 caracteres.")]
     public string Nome { get; set; }
 
-    [Required(ErrorMessage = "Email é obrigatório")]
-    [EmailAddress(ErrorMessage = "Email inválido")]
+    [Required(ErrorMessage = "O campo \"E-mail\" é obrigatório")]
+    [EmailAddress(ErrorMessage = "O campo \"E-mail\" deve seguir o formato: nome@provedor.com")]
     public string Email { get; set; }
 
-    [Required(ErrorMessage = "Telefone é obrigatório")]
+    [Required(ErrorMessage = "O campo \"Telefone\" é obrigatório")]
     [RegularExpression(@"^\(\d{2}\)\s\d{4,5}-\d{4}$", 
-    ErrorMessage = "Telefone deve seguir o formato (XX) XXXX-XXXX ou (XX) XXXXX-XXXX")]
+    ErrorMessage = "O campo \"Telefone\" deve seguir o formato: (XX) XXXX-XXXX ou (XX) XXXXX-XXXX")]
     public string Telefone { get; set; }
+
     public string? Cargo { get; set; }
     public string? Empresa { get; set; }
 }
@@ -34,9 +34,9 @@ public class CadastrarContatoViewModel : FormularioContatoViewModel
         Telefone = telefone;
         Cargo = cargo;
         Empresa = empresa;
-
     }
 }
+
 public class EditarContatoViewModel : FormularioContatoViewModel
 {
     public Guid Id { get; set; }
@@ -50,8 +50,8 @@ public class EditarContatoViewModel : FormularioContatoViewModel
         Cargo = cargo;
         Empresa = empresa;
     }
-
 }
+
 public class ExcluirContatoViewModel
 {
     public Guid Id { get; set; }
@@ -62,6 +62,7 @@ public class ExcluirContatoViewModel
         Nome = nome;
     }
 }
+
 public class VisualizarContatoViewModel 
 {
     public List<DetalhesContatoViewModel> Registros { get; set; }
@@ -73,8 +74,8 @@ public class VisualizarContatoViewModel
             Registros.Add(c.ParaDetalhesVM());
         }
     }
-
 }
+
 public class DetalhesContatoViewModel
 {
     public Guid Id { get; set; }
@@ -93,6 +94,7 @@ public class DetalhesContatoViewModel
         Empresa = empresa;
     }
 }
+
 public class SelecionarContatoViewModel
 {
     public Guid Id { get; set; }
@@ -102,15 +104,4 @@ public class SelecionarContatoViewModel
         Id = id;
         Nome = nome;
     }
-
 }
-
-
-
-
-
-
-
-
-
-
