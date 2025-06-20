@@ -108,13 +108,13 @@ namespace E_Agenda.WebApp.Controllers
             foreach (var item in registros)
             {
                 
-                if (item.Id.Equals(editarVM.Email) && !item.Id.Equals(id))
+                if (!item.Id.Equals(id) && item.Email.Equals(editarVM.Email))
                 {
                     ModelState.AddModelError("CadastroUnico", "Já existe um contato registrado com este email.");
                     break;
                 }
 
-                if (item.Id.Equals(editarVM.Telefone) && !item.Id.Equals(id))
+                if (!item.Id.Equals(id) && item.Telefone.Equals(editarVM.Telefone))
                 {
                     ModelState.AddModelError("CadastroUnico", "Já existe um contato registrado com este telefone.");
                     break;
