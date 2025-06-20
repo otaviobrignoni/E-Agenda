@@ -1,5 +1,5 @@
 ﻿using E_Agenda.Dominio.ModuloContatos;
-using E_Agenda.WebApp.Models.Contatos;
+using E_Agenda.WebApp.Models;
 
 namespace E_Agenda.WebApp.Extensions
 {

@@ -1,7 +1,7 @@
 ﻿using E_Agenda.Dominio.ModuloCompromissos;
 using E_Agenda.Dominio.ModuloContatos;
 using E_Agenda.WebApp.Extensions;
-using E_Agenda.WebApp.Models.Contatos;
+using E_Agenda.WebApp.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.ComponentModel.DataAnnotations;
 

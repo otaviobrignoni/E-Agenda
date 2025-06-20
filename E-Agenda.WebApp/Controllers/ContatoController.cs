@@ -2,7 +2,7 @@
 using E_Agenda.Infraestrutura.Compartilhado;
 using E_Agenda.Infraestrutura.ModuloContatos;
 using E_Agenda.WebApp.Extensions;
-using E_Agenda.WebApp.Models.Contatos;
+using E_Agenda.WebApp.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace E_Agenda.WebApp.Controllers
