@@ -15,7 +15,7 @@ body {
 .main-content {
     width: calc(100% - 72px);
     margin-left: 72px;
-    flex: 1 0 auto;
+    overflow: auto;
 }
 
 .sidebar {
@@ -98,7 +98,6 @@ body {
     .main-content {
         width: 100%;
         margin-left: 0;
-        margin-bottom: 62px;
         margin-top: 66px;
     }
 }

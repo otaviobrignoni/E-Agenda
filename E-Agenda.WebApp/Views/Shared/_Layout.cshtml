@@ -78,14 +78,24 @@
 		</ul>
 	</nav>
 
-	<div class="main-content">
-		<header class="container text-center">
-			<h2 class="fw-bold">@ViewBag.Header</h2>
-		</header>
+	@{
+		var controller = ViewContext.RouteData.Values["controller"]?.ToString();
+		var action = ViewContext.RouteData.Values["action"]?.ToString();
+	}
 
+	<div class="main-content">
+
+		@if (!(controller == "Home" && action == "Index"))
+		{
+			<header class="text-center">
+				<h1 class="fw-bold my-4">@ViewBag.Header</h1>
+			</header>
+		}
+		
 		<main>
 			@RenderBody()
 		</main>
+
 	</div>
 
 	<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
