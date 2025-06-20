@@ -1,33 +1,44 @@
 ﻿@model VisualizarContatoViewModel
 
-<p>
-	<a class="btn btn-primary px-4" href="/contatos/cadastrar">
-		<i class="bi bi-plus"></i>
-		Cadastrar Novo/a
-	</a>
-</p>
+<div class="px-4 px-lg-4">
+	<div class="row gx-2">
 
-<div class="d-flex flex-wrap gap-2">
-	@foreach (var item in Model.Registros)
-	{
-		<div class="col-12 col-md-3">
-			<div class="card border-0">
-				<div class="card-body">
-					<p class="card-text"><span class="fw-semibold">Nome:</span> @item.Nome</p>
-					<p class="card-text"><span class="fw-semibold">E-mail:</span> @item.Email</p>
-					<p class="card-text"><span class="fw-semibold">Telefone:</span> @item.Telefone</p>
+		<div class="col-12 col-md-6 col-lg-3 mb-2">
+			<a href="/contatos/cadastrar" class="card card-visualizar h-100 text-decoration-none">
+				<div class="text-center card-body justify-content-center ">
 
-					<span class="d-flex gap-1 justify-content-end mt-4">
-						<a href="/contatos/editar/@item.Id" class="btn btn-primary">
-							<i class="bi bi-pencil-square"></i>
-						</a>
+					<h4 class="fw-semibold my-4">Cadastre novos contatos</h4>
 
-						<a href="/contatos/excluir/@item.Id" class="btn btn-danger">
-							<i class="bi bi-trash"></i>
-						</a>
-					</span>
+					<div class="mb-2 card-cadastrar-icone">
+						<i class="bi bi-plus-circle"></i>
+					</div>
+					
+				</div>
+			</a>
+		</div>
+
+		@foreach (var item in Model.Registros)
+		{
+			<div class="col-12 col-md-6 col-lg-3 mb-2">
+
+				<div class="card card-visualizar h-100">
+					<div class="card-body">
+						<p class="card-text"><span class="fw-semibold">Nome:</span> @item.Nome</p>
+						<p class="card-text"><span class="fw-semibold">E-mail:</span> @item.Email</p>
+						<p class="card-text"><span class="fw-semibold">Telefone:</span> @item.Telefone</p>
+
+						<span class="d-flex gap-1 justify-content-end mt-4">
+							<a href="/contatos/editar/@item.Id" class="btn btn-primary">
+								<i class="bi bi-pencil-square"></i>
+							</a>
+
+							<a href="/contatos/excluir/@item.Id" class="btn btn-danger">
+								<i class="bi bi-trash"></i>
+							</a>
+						</span>
+					</div>
 				</div>
 			</div>
-		</div>
-	}
+		}
+	</div>
 </div>
