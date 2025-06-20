@@ -140,6 +140,7 @@ public class CompromissoController : Controller
     }
 
     [HttpPost("excluir/{id:guid}")]
+    [ValidateAntiForgeryToken]
     public IActionResult ExcluirConfirmado(Guid id)
     {
         ViewBag.Title = "Compromissos | Excluir";
