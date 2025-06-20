@@ -1,33 +1,33 @@
-﻿
-@model VisualizarContatoViewModel
+﻿@model VisualizarContatoViewModel
 
 <p>
-    <a class="btn btn-primary px-4" href="/contatos/cadastrar">
-        <i class="bi bi-plus"></i>
-        Cadastrar Novo/a
-    </a>
+	<a class="btn btn-primary px-4" href="/contatos/cadastrar">
+		<i class="bi bi-plus"></i>
+		Cadastrar Novo/a
+	</a>
 </p>
 
-
 <div class="d-flex flex-wrap gap-2">
-    @foreach (var item in Model.Registros)
-    {
-        <div class="col-12 col-md-3">
-            <div class="card border-0">
-                <div class="card-body">
-                    <h5 class="card-title">Contato: @item.Nome</h5>
-                    <p class="card-text"><span class="fw-semibold">Nome:</span> @item.Nome</p>
+	@foreach (var item in Model.Registros)
+	{
+		<div class="col-12 col-md-3">
+			<div class="card border-0">
+				<div class="card-body">
+					<p class="card-text"><span class="fw-semibold">Nome:</span> @item.Nome</p>
+					<p class="card-text"><span class="fw-semibold">E-mail:</span> @item.Email</p>
+					<p class="card-text"><span class="fw-semibold">Telefone:</span> @item.Telefone</p>
 
-                    <span class="d-flex gap-1 justify-content-end mt-4">
-                        <a href="/contatos/editar/@item.Id" class="btn btn-primary rounded-circle opcao-card">
-                            <i class="bi bi-pencil-square"></i>
-                        </a>
+					<span class="d-flex gap-1 justify-content-end mt-4">
+						<a href="/contatos/editar/@item.Id" class="btn btn-primary">
+							<i class="bi bi-pencil-square"></i>
+						</a>
 
-                        <a href="/contatos/excluir/@item.Id" class="btn btn-danger rounded-circle opcao-card">
-                            <i class="bi bi-trash"></i>
-                        </a>
-                    </span>
-                </div>
-            </div>
-        </div>
-    }
+						<a href="/contatos/excluir/@item.Id" class="btn btn-danger">
+							<i class="bi bi-trash"></i>
+						</a>
+					</span>
+				</div>
+			</div>
+		</div>
+	}
+</div>
