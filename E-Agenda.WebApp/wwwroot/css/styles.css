@@ -115,6 +115,10 @@ body {
     font-size: 4rem
 }
 
+.card-cadastrar-icone-categoria {
+    font-size: 2rem
+}
+
 @media (max-width: 767.98px) {
     .custom-navbar {
         left: 0;

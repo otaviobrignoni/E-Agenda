@@ -1,33 +1,37 @@
 ﻿@model EditarCategoriaViewModel
 
-<div class="row justify-content-center my-5">
-    <div class="col-md-8">
-        <div class="card rounded-4 border-0">
-            <div class="card-body p-md-5">
-                <form asp-action="Editar" asp-route-id="@Model.Id" method="post">
-                    <h3>Formulário de Edição</h3>
+<div class="container">
+    <div class="row justify-content-center my-5">
+        <div class="col-md-8">
+            <div class="card card-form rounded-4 border-0">
+                <div class="card-body p-md-5">
+                    <form asp-action="Editar" asp-route-id="@Model.Id" method="post">
+                        <h3 class="text-center fw-bold">Formulário de Edição</h3>
 
-                    @if (ViewData.ModelState["CadastroUnico"]?.Errors.Count > 0)
-                    {
-                        <div class="alert alert-danger alert-dismissible fade show my-3" role="alert">
-                            @ViewData.ModelState["CadastroUnico"]!.Errors.First().ErrorMessage
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        @if (ViewData.ModelState["CadastroUnico"]?.Errors.Count > 0)
+                        {
+                            <div class="alert alert-danger alert-dismissible fade show my-3" role="alert">
+                                @ViewData.ModelState["CadastroUnico"]!.Errors.First().ErrorMessage
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        }
+
+                        <div class="form-group d-grid gap-2 mt-3">
+                            <label asp-for="Titulo" class="control-label fs-5">Título:</label>
+                            <input asp-for="Titulo" class="form-control imput-form" />
+                            <span asp-validation-for="Titulo" class="text-danger"></span>
                         </div>
-                    }
 
-                    <div class="form-group d-grid gap-2 mt-3">
-                        <label asp-for="Titulo" class="control-label fs-5">Título:</label>
-                        <input asp-for="Titulo" class="form-control" />
-                        <span asp-validation-for="Titulo" class="text-danger"></span>
-                    </div>
-                    <div class="form-group d-flex align-items-center justify-content-end gap-3 mt-5">
-                        <a href="/categorias">Voltar para a listagem</a>
-                        <button type="submit" class="btn btn-primary rounded-3 px-5">Confirmar</button>
-                    </div>
-                </form>
+                        <div class="form-group d-flex align-items-center justify-content-center justify-content-md-end gap-3 mt-5">
+                            <a role="button" href="/categorias" class="btn btn-secondary rounded-3 px-5" title="Voltar a página de categorias">Voltar</a>
+                            <button type="submit" class="btn btn-success rounded-3 px-5" title="Salvar dados">Salvar</button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
+
 </div>
 
 @section Scripts {
