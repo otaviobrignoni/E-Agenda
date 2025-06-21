@@ -14,32 +14,49 @@
 
 </head>
 <body>
+
+	@{
+		var currentPath = Context.Request.Path.Value.ToLower();
+	}
+
     <!-- Side bar -->
-    <nav class="sidebar d-none d-md-flex flex-column align-items-center py-3">
-        <div class="mb-3">
-            <img src="~/imagens/icone.svg" alt="Descrição do ícone">
-        </div>
-        <ul class="nav flex-column w-100">
-            <li class="nav-item my-1">
-                <a class="nav-link" href="/" title="Início"><i class="bi bi-house-door"></i></a>
-            </li>
-            <li class="nav-item my-1">
-                <a class="nav-link" href="/contatos" title="Contatos"><i class="bi bi-person-lines-fill"></i></a>
-            </li>
-            <li class="nav-item my-1">
-                <a class="nav-link" href="/compromissos" title="Compromissos"><i class="bi bi-calendar-event"></i></a>
-            </li>
-            <li class="nav-item my-1">
-                <a class="nav-link" href="/categorias" title="Categorias"><i class="bi bi-tags-fill"></i></a>
-            </li>
-            <li class="nav-item my-1">
-                <a class="nav-link" href="/despesas" title="Despesas"><i class="bi bi-cash-stack"></i></a>
-            </li>
-            <li class="nav-item my-1">
-                <a class="nav-link" href="/tarefas" title="Tarefas"><i class="bi bi-check2-square"></i></a>
-            </li>
-        </ul>
-    </nav>
+	<nav class="sidebar d-none d-md-flex flex-column align-items-center py-3">
+		<div class="mb-3">
+			<img src="~/imagens/icone.svg" alt="Descrição do ícone">
+		</div>
+		<ul class="nav flex-column w-100">
+			<li class="nav-item my-1">
+				<a class="nav-link @(currentPath == "/" ? "active" : "")" href="/" title="Início">
+					<i class="bi bi-house-door"></i>
+				</a>
+			</li>
+			<li class="nav-item my-1">
+				<a class="nav-link @(currentPath.StartsWith("/contatos") ? "active" : "")" href="/contatos" title="Contatos">
+					<i class="bi bi-person-lines-fill"></i>
+				</a>
+			</li>
+			<li class="nav-item my-1">
+				<a class="nav-link @(currentPath.StartsWith("/compromissos") ? "active" : "")" href="/compromissos" title="Compromissos">
+					<i class="bi bi-calendar-event"></i>
+				</a>
+			</li>
+			<li class="nav-item my-1">
+				<a class="nav-link @(currentPath.StartsWith("/categorias") ? "active" : "")" href="/categorias" title="Categorias">
+					<i class="bi bi-tags-fill"></i>
+				</a>
+			</li>
+			<li class="nav-item my-1">
+				<a class="nav-link @(currentPath.StartsWith("/despesas") ? "active" : "")" href="/despesas" title="Despesas">
+					<i class="bi bi-cash-stack"></i>
+				</a>
+			</li>
+			<li class="nav-item my-1">
+				<a class="nav-link @(currentPath.StartsWith("/tarefas") ? "active" : "")" href="/tarefas" title="Tarefas">
+					<i class="bi bi-check2-square"></i>
+				</a>
+			</li>
+		</ul>
+	</nav>
 
 	<!-- Navbar -->
 	<nav class="navbar navbar-expand-md px-3 py-2 custom-navbar">
@@ -58,22 +75,22 @@
 	<nav class="bottom-bar d-md-none fixed-bottom border-top">
 		<ul class="nav justify-content-around align-items-center my-1">
 			<li class="nav-item">
-				<a class="nav-link " href="/"><i class="bi bi-house-door"></i></a>
+				<a class="nav-link @(currentPath == "/" ? "active" : "")" href="/"><i class="bi bi-house-door"></i></a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" href="/contatos"><i class="bi bi-person-lines-fill"></i></a>
+				<a class="nav-link @(currentPath.StartsWith("/contatos") ? "active" : "")" href="/contatos"><i class="bi bi-person-lines-fill"></i></a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" href="/compromissos"><i class="bi bi-calendar-event"></i></a>
+				<a class="nav-link @(currentPath.StartsWith("/compromissos") ? "active" : "")" href="/compromissos"><i class="bi bi-calendar-event"></i></a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" href="/categorias"><i class="bi bi-tags-fill"></i></a>
+				<a class="nav-link @(currentPath.StartsWith("/categorias") ? "active" : "")" href="/categorias"><i class="bi bi-tags-fill"></i></a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" href="/despesas"><i class="bi bi-cash-stack"></i></a>
+				<a class="nav-link @(currentPath.StartsWith("/despesas") ? "active" : "")" href="/despesas"><i class="bi bi-cash-stack"></i></a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" href="/tarefas"><i class="bi bi-check2-square"></i></a>
+				<a class="nav-link @(currentPath.StartsWith("/tarefas") ? "active" : "")" href="/tarefas"><i class="bi bi-check2-square"></i></a>
 			</li>
 		</ul>
 	</nav>
