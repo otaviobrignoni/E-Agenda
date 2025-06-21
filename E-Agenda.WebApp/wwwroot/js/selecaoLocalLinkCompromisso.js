@@ -8,11 +8,11 @@
         if (!selected) return;
 
         if (selected.value === 'Presencial') {
-            label.textContent = 'Local:';
+            label.textContent = 'Local*';
             input.placeholder = 'Digite um local...';
         }
         else if (selected.value === 'Remoto') {
-            label.textContent = 'Link:';
+            label.textContent = 'Link*';
             input.placeholder = 'Digite um link...';
         }
     }
