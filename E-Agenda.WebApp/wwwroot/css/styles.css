@@ -1,7 +1,6 @@
 ﻿:root {
     --fundo: #E8E9F3;
-    --fundo-card: #CECECE;
-    --borda: #A6A6A8;
+    --fundo-card: ghostwhite;
     --texto: #272635;
     --navbar: #172747;
 }
@@ -40,9 +39,12 @@ body {
         padding: 6px;
     }
 
-        .sidebar .nav-link.active, .sidebar .nav-link:hover {
-            background: var(--borda);
-            color: var(--texto);
+        .sidebar .nav-link.active,
+        .sidebar .nav-link:hover {
+            background: var(--fundo);
+            color: var(--texto-sidebar);
+            border-radius: 1rem;
+            transition: background 0.2s, color 0.2s;
         }
 
 /* mobile */
@@ -58,9 +60,10 @@ body {
     }
 
         .bottom-bar .nav-link.active, .bottom-bar .nav-link:hover {
-            color: var(--texto);
-            background: var(--borda);
-            border-radius: 13px;
+            background: var(--fundo);
+            color: var(--texto-sidebar);
+            border-radius: 1rem;
+            transition: background 0.2s, color 0.2s;
         }
 
 .custom-navbar {
@@ -89,10 +92,24 @@ body {
 }
 
 .card-visualizar {
-    background-color: snow;
-    color: var(--texto);
+    background-color: var(--fundo-card);
+    color: var(--texto);    
     box-shadow: 0 2px 8px rgba(0,0,0,0.08), 0 1.5px 3px rgba(0,0,0,0.06);
 }
+
+.card-form {
+    background-color: var(--fundo-card);
+    color: var(--texto);
+}
+
+.imput-form {
+    background-color: var(--fundo);
+    color: var(--texto);
+}
+    .imput-form:focus {
+        background-color: var(--fundo-card);
+        color: var(--texto);
+    }
 
 .card-cadastrar-icone {
     font-size: 4rem
