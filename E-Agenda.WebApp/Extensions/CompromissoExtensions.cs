@@ -8,12 +8,15 @@ public static class CompromissoExtensions
 {
     public static DetalhesCompromissoViewModel ParaVM(this Compromisso c)
     {
-        string localOuLink;
-
-        if (c.Tipo == TipoCompromisso.Remoto) localOuLink = c.Link!;
-        else localOuLink = c.Local!;
-
-        return new DetalhesCompromissoViewModel(c.Id, c.Assunto, c.DataOcorrencia, c.HoraInicio, c.HoraTermino, c.Tipo == TipoCompromisso.Remoto, localOuLink, c.Contato);
+        return new DetalhesCompromissoViewModel(
+            c.Id,
+            c.Assunto,
+            c.DataOcorrencia,
+            c.HoraInicio,
+            c.HoraTermino,
+            c.Tipo,
+            c.LocalOuLink,
+            c.Contato);
     }
 
     public static Compromisso ParaEntidade(this FormularioComprimissoViewModel formVm, List<Contato> contatos)
