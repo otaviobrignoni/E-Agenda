@@ -1,31 +1,51 @@
 ﻿@model VisualizarDespesaViewModel
 
-<div class="d-flex flex-wrap gap-2">
-    @foreach (var item in Model.Registros)
-    {
-        <div class="col-12 col-md-3">
-            <div class="card border-0">
-                <div class="card-body">
-                    <h5 class="card-title">Contato: @item.Descricao</h5>
-                    <p class="card-text"><span class="fw-semibold">Descricao:</span> @item.Descricao</p>
+<div class="container">
+    <div class="row gx-2 gy-2">
+        <div class="col-12 col-md-6 col-lg-3">
+            <a asp-action="cadastrar" class="card card-visualizar h-100 text-decoration-none" title="Cadastrar nova despesa">
+                <div class="text-center card-body justify-content-center ">
 
-                    <span class="d-flex gap-1 justify-content-end mt-4">
-                        <a href="/despesas/editar/@item.Id" class="btn btn-primary rounded-circle opcao-card">
-                            <i class="bi bi-pencil-square"></i>
-                        </a>
-                        <a href="/despesas/excluir/@item.Id" class="btn btn-danger rounded-circle opcao-card">
-                            <i class="bi bi-trash"></i>
-                        </a>
-                    </span>
+                    <h3 class="fw-semibold my-4">Cadastre novas despesas</h3>
+
+                    <div class="mb-2 card-cadastrar-icone">
+                        <i class="bi bi-plus-circle"></i>
+                    </div>
+
+                </div>
+            </a>
+        </div>
+
+        @foreach (var item in Model.Registros)
+        {
+            <div class="col-12 col-md-6 col-lg-3">
+                <div class="card card-visualizar">
+                    <div class="card-body">
+                        @{
+                            var descricao = item.Descricao ?? "";
+                            var descricaoExibida = descricao.Length > 29
+                            ? descricao.Substring(0, 29) + "..."
+                            : descricao;
+                        }
+                        <p class="card-text">
+                            <span class="fw-semibold">Descricao:</span> @descricaoExibida
+                        </p>                        
+                        <p class="card-text"><span class="fw-semibold">Valor:</span> @item.Valor</p>
+                        <p class="card-text"><span class="fw-semibold">Pagamento:</span> @item.FormaPagamento</p>
+                        <p class="card-text"><span class="fw-semibold">Categorias:</span> @item.Categorias</p>
+
+                        <span class="d-flex gap-1 justify-content-end">
+                            <a asp-action="editar" asp-route-id="@item.Id" class="btn btn-primary" title="Editar">
+                                <i class="bi bi-pencil-square"></i>
+                            </a>
+
+                            <a asp-action="excluir" asp-route-id="@item.Id" class="btn btn-danger" title="Excluir">
+                                <i class="bi bi-trash"></i>
+                            </a>
+                        </span>
+                    </div>
                 </div>
             </div>
-        </div>
-    }
-    <div class="col-12 col-md-3">
-        <div class="card border-0">
-            <div class="card-body">
-                <a href="/despesas/cadastrar">+</a>
-            </div>
-        </div>
+        }
     </div>
 </div>
