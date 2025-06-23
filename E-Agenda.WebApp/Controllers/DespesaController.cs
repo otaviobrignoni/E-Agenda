@@ -74,13 +74,14 @@ public class DespesaController : Controller
             return View(cadastrarVM);
         }
 
-        var categoriasSelecionadas = repositorioCategoria.ObterTodos();
-
-        categoriasSelecionadas = categoriasSelecionadas.GroupBy(c => c.Id).Select(g => g.First()).ToList();
+        var categoriasSelecionadas = repositorioCategoria.ObterTodos().GroupBy(c => c.Id).Select(g => g.First()).ToList();
 
         var entidade = cadastrarVM.ParaEntidade(categoriasSelecionadas);
 
         repositorioDespesa.Cadastrar(entidade);
+
+        foreach (var c in entidade.Categorias)
+            c.AdicionarDespesa(entidade);
 
         return RedirectToAction(nameof(Index));
 
@@ -95,7 +96,7 @@ public class DespesaController : Controller
         var registroSelecionado = repositorioDespesa.ObterPorId(id);
 
         var editarVM = new EditarDespesaViewModel(id, registroSelecionado.Descricao, registroSelecionado.DataOcorrencia, registroSelecionado.Valor, registroSelecionado.FormaPagamento, registroSelecionado.Categorias);
-        
+
         return View(editarVM);
     }
 
@@ -105,6 +106,11 @@ public class DespesaController : Controller
     {
         ViewBag.Title = "Despesas | Editar";
         ViewBag.Header = "Edição de Despesa";
+
+        var registroSelecionado = repositorioDespesa.ObterPorId(id);
+
+        foreach (var c in registroSelecionado.Categorias)
+            c.RemoverDespesa(registroSelecionado);
 
         var registros = repositorioDespesa.ObterTodos();
 
@@ -124,13 +130,14 @@ public class DespesaController : Controller
             return View(editarVM);
         }
 
-        var categoriasSelecionadas = repositorioCategoria.ObterTodos();
+        var categoriasSelecionadas = repositorioCategoria.ObterTodos().GroupBy(c => c.Id).Select(g => g.First()).ToList();
 
-        categoriasSelecionadas = categoriasSelecionadas.GroupBy(c => c.Id).Select(g => g.First()).ToList();
+        var entidadeEditada = editarVM.ParaEntidade(categoriasSelecionadas);
 
-        var entidade = editarVM.ParaEntidade(categoriasSelecionadas);
+        repositorioDespesa.Editar(id, entidadeEditada);
 
-        repositorioDespesa.Cadastrar(entidade);
+        foreach (var c in entidadeEditada.Categorias)
+            c.AdicionarDespesa(entidadeEditada);
 
         return RedirectToAction(nameof(Index));
     }
