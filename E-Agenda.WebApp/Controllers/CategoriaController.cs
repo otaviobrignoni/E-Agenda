@@ -128,15 +128,15 @@ public class CategoriaController : Controller
         ViewBag.Title = "Categorias | Excluir";
         ViewBag.Header = "Exclusão de Categoria";
 
-        var registros = repositorioCategoria.ObterTodos();
+        var categoriaSelecionada = repositorioCategoria.ObterPorId(id);
 
-        foreach (var item in registros)
+        if (categoriaSelecionada != null && categoriaSelecionada.Despesas.Count > 0)
         {
-            if (item.Despesas.Count != 0)
-            {
-                ModelState.AddModelError("CadastroUnico", "Não é possível excluir um categoria com despesas vinculadas");
-                break;
-            }
+            ModelState.AddModelError("CadastroUnico", "Não é possível excluir uma categoria com despesas vinculadas");
+
+            var excluirVM = new ExcluirCategoriaViewModel(categoriaSelecionada.Id, categoriaSelecionada.Titulo);
+
+            return View("Excluir", excluirVM);
         }
 
         repositorioCategoria.Excluir(id);
