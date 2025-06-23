@@ -56,16 +56,8 @@ public class DespesaController : Controller
         ViewBag.Title = "Despesas | Cadastrar";
         ViewBag.Header = "Cadastro de Despesa";
 
-        var registros = repositorioDespesa.ObterTodos();
-
-        foreach (var item in registros)
-        {
-            if (item.Categorias.Count == 0)
-            {
-                ModelState.AddModelError("CadastroUnico", "Selecione pelo menos uma categoria");
-                break;
-            }
-        }
+        if (cadastrarVM.CategoriasSelecionadas == null || cadastrarVM.CategoriasSelecionadas.Count == 0)
+            ModelState.AddModelError("CadastroUnico", "Selecione pelo menos uma categoria");
 
         if (!ModelState.IsValid)
         {
@@ -74,7 +66,9 @@ public class DespesaController : Controller
             return View(cadastrarVM);
         }
 
-        var categoriasSelecionadas = repositorioCategoria.ObterTodos().GroupBy(c => c.Id).Select(g => g.First()).ToList();
+        var categoriasSelecionadas = repositorioCategoria.ObterTodos()
+            .Where(c => cadastrarVM.CategoriasSelecionadas.Contains(c.Id))
+            .ToList();
 
         var entidade = cadastrarVM.ParaEntidade(categoriasSelecionadas);
 
@@ -82,6 +76,8 @@ public class DespesaController : Controller
 
         foreach (var c in entidade.Categorias)
             c.AdicionarDespesa(entidade);
+
+        contexto.Salvar();
 
         return RedirectToAction(nameof(Index));
 
@@ -94,8 +90,16 @@ public class DespesaController : Controller
         ViewBag.Header = "Edição de Despesa";
 
         var registroSelecionado = repositorioDespesa.ObterPorId(id);
+        var categorias = repositorioCategoria.ObterTodos();
 
-        var editarVM = new EditarDespesaViewModel(id, registroSelecionado.Descricao, registroSelecionado.DataOcorrencia, registroSelecionado.Valor, registroSelecionado.FormaPagamento, registroSelecionado.Categorias);
+        var editarVM = new EditarDespesaViewModel(
+            id,
+            registroSelecionado.Descricao,
+            registroSelecionado.DataOcorrencia,
+            registroSelecionado.Valor,
+            registroSelecionado.FormaPagamento,
+            categorias,
+            registroSelecionado.Categorias);
 
         return View(editarVM);
     }
@@ -112,16 +116,8 @@ public class DespesaController : Controller
         foreach (var c in registroSelecionado.Categorias)
             c.RemoverDespesa(registroSelecionado);
 
-        var registros = repositorioDespesa.ObterTodos();
-
-        foreach (var item in registros)
-        {
-            if (item.Categorias.Count <= 0)
-            {
-                ModelState.AddModelError("CadastroUnico", "Selecione pelo menos uma categoria");
-                break;
-            }
-        }
+        if (editarVM.CategoriasSelecionadas == null || editarVM.CategoriasSelecionadas.Count == 0)
+            ModelState.AddModelError("CadastroUnico", "Selecione pelo menos uma categoria");
 
         if (!ModelState.IsValid)
         {
@@ -130,7 +126,9 @@ public class DespesaController : Controller
             return View(editarVM);
         }
 
-        var categoriasSelecionadas = repositorioCategoria.ObterTodos().GroupBy(c => c.Id).Select(g => g.First()).ToList();
+        var categoriasSelecionadas = repositorioCategoria.ObterTodos()
+            .Where(c => editarVM.CategoriasSelecionadas.Contains(c.Id))
+            .ToList();
 
         var entidadeEditada = editarVM.ParaEntidade(categoriasSelecionadas);
 
@@ -138,6 +136,8 @@ public class DespesaController : Controller
 
         foreach (var c in entidadeEditada.Categorias)
             c.AdicionarDespesa(entidadeEditada);
+
+        contexto.Salvar();
 
         return RedirectToAction(nameof(Index));
     }
@@ -162,7 +162,15 @@ public class DespesaController : Controller
         ViewBag.Title = "Despesas | Excluir";
         ViewBag.Header = "Exclusão de Despesa";
 
-        repositorioDespesa.Excluir(id);
+        var despesaSelecionada = repositorioDespesa.ObterPorId(id);
+
+        if (despesaSelecionada != null)
+        {
+            foreach (var c in despesaSelecionada.Categorias)
+                c.RemoverDespesa(despesaSelecionada);
+
+            repositorioDespesa.Excluir(id);
+        }
 
         return RedirectToAction(nameof(Index));
     }
