@@ -1,39 +1,39 @@
 ﻿@model DetalhesCategoriaViewModel
 
 <div class="container">
-	<div class="row justify-content-center my-5">
-		<div class="col-md-8">
+    <div class="row justify-content-center my-5">
+        <div class="col-md-8">
 
-			<div class="card card-visualizar rounded-4 border-0">
-				<div class="card-body p-md-5">
-					<h3 class="text-center fw-bold">Detalhes</h3>
+            <div class="card card-visualizar rounded-4 border-0">
+                <div class="card-body p-md-5">
+                    <h3 class="text-center fw-bold">Detalhes</h3>
 
-					<div class="form-group d-grid gap-2 mt-3">
-						<label for="Id" class="control-label fs-5">Id:</label>
-						<input name="Id" class="form-control" value="@Model.Id" readonly disabled />
-					</div>
-					<div class="form-group d-grid gap-2 mt-3">
-						<label for="Nome" class="control-label fs-5">Nome:</label>
-						<input name="Nome" class="form-control" value="@Model.Titulo" readonly disabled />
-					</div>
-					<div class="d-flex flex-wrap gap-2">
-						@if (Model.Despesas != null && Model.Despesas.Count != 0)
-							@foreach (var item in Model.Despesas)
-							{
-								<div class="col-12 col-md-3">
-									<div class="card border-0">
-										<div class="card-body">
-											<h5 class="card-title">Despesa: @item.Id</h5>
-										</div>
-									</div>
-								</div>
-							}
-					</div>
-					<div class="form-group d-flex align-items-center justify-content-end gap-3 mt-4">
-						<a role="button" href="/categorias" class="btn btn-secondary rounded-3 px-5" title="Voltar a página de categorias">Voltar</a>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+                    <div class="form-group d-grid gap-2 mt-3">
+                        <label for="Id" class="control-label fs-5">Id:</label>
+                        <input name="Id" class="form-control" value="@Model.Id" readonly disabled />
+                    </div>
+                    <div class="form-group d-grid gap-2 mt-3">
+                        <label for="Nome" class="control-label fs-5">Nome:</label>
+                        <input name="Nome" class="form-control" value="@Model.Titulo" readonly disabled />
+                    </div>
+                    <span class="control-label fs-5">Despesas:</span>
+                    <div class="d-flex flex-wrap gap-2">
+                        @foreach (var item in Model.Despesas)
+                        {
+                            <div class="col-12 col-md-3">
+                                <div class="card border-0">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Despesa: @item.Id.ToString()</h5>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                    <div class="form-group d-flex align-items-center justify-content-end gap-3 mt-4">
+                        <a role="button" href="/categorias" class="btn btn-secondary rounded-3 px-5" title="Voltar a página de categorias">Voltar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
