@@ -1,4 +1,5 @@
-﻿using E_Agenda.Dominio.Compartilhado;
+﻿using System.ComponentModel.DataAnnotations;
+using E_Agenda.Dominio.Compartilhado;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace E_Agenda.Dominio.ModuloTarefa;
@@ -73,8 +74,11 @@ public class Tarefa : EntidadeBase<Tarefa>
 
     public enum Prioridade
     {
+        [Display(Name = "Baixa")]
         Baixa,
+        [Display(Name = "Normal")]
         Normal,
+        [Display(Name = "Alta")]
         Alta
     }
 
