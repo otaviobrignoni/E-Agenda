@@ -57,7 +57,7 @@ public class EditarCompromissoViewModel : FormularioComprimissoViewModel
     public Guid Id { get; set; }
     public EditarCompromissoViewModel() { }
 
-    public EditarCompromissoViewModel(Guid id, string assunto, DateOnly dataOcorrencia, TimeOnly inicio, TimeOnly termino, TipoCompromisso tipo, string localOuLink, Guid contatoId, List<Contato> contatos) : this()
+    public EditarCompromissoViewModel(Guid id, string assunto, DateOnly dataOcorrencia, TimeOnly inicio, TimeOnly termino, TipoCompromisso tipo, string localOuLink, Guid? contatoId, List<Contato> contatos) : this()
     {
         Id = id;
         Assunto = assunto;
@@ -107,22 +107,19 @@ public class DetalhesCompromissoViewModel
     public TimeOnly HoraInicio { get; set; }
     public TimeOnly HoraTermino { get; set; }
     public TipoCompromisso Tipo { get; set; }
-    public string? Local { get; set; } = null;
-    public string? Link { get; set; } = null;
+    public string LocalOuLink { get; set; }
     public string? Contato { get; set; } = null;
 
-    public DetalhesCompromissoViewModel(Guid id, string assunto, DateOnly dataOcorrencia, TimeOnly inicio, TimeOnly termino, bool ehRemoto, string localOuLink, Contato? contato)
+    public DetalhesCompromissoViewModel(Guid id, string assunto, DateOnly dataOcorrencia, TimeOnly inicio, TimeOnly termino, TipoCompromisso tipo, string localOuLink, Contato? contato)
     {
         Id = id;
         Assunto = assunto;
         DataOcorrencia = dataOcorrencia;
         HoraInicio = inicio;
         HoraTermino = termino;
-        Tipo = ehRemoto ? TipoCompromisso.Remoto : TipoCompromisso.Presencial;
-        if (ehRemoto) Local = localOuLink;
-        else Link = localOuLink;
-        if (Contato == null) Contato = null;
-        else Contato = contato.Nome;
+        Tipo = tipo;
+        LocalOuLink = localOuLink;
+        Contato = contato?.Nome;
     }
 
 }

@@ -9,8 +9,7 @@ public class Compromisso : EntidadeBase<Compromisso>
     public TimeOnly HoraInicio { get; set; }
     public TimeOnly HoraTermino { get; set; }
     public TipoCompromisso Tipo { get; set; }
-    public string? Local { get; set; } = null;
-    public string? Link { get; set; } = null;
+    public string LocalOuLink { get; set; }
     public Contato? Contato { get; set; } = null;
 
     public Compromisso()
@@ -24,8 +23,7 @@ public class Compromisso : EntidadeBase<Compromisso>
         HoraInicio = inicio;
         HoraTermino = termino;
         Tipo = ehRemoto ? TipoCompromisso.Remoto : TipoCompromisso.Presencial;
-        if (ehRemoto) Local = localOuLink;
-        else Link = localOuLink;
+        LocalOuLink = localOuLink;
         Contato = contato;
     }
 
@@ -36,8 +34,7 @@ public class Compromisso : EntidadeBase<Compromisso>
         HoraInicio = registroEditado.HoraInicio;
         HoraTermino = registroEditado.HoraTermino;
         Tipo = registroEditado.Tipo;
-        Local = registroEditado.Local;
-        Link = registroEditado.Link;
+        LocalOuLink = registroEditado.LocalOuLink;
         Contato = registroEditado.Contato;
     }
 }

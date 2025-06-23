@@ -56,6 +56,7 @@ public class CompromissoController : Controller
         ViewBag.Header = "Cadastro de Compromisso";
 
         var registros = repositorioCompromisso.ObterTodos();
+        var contatos = repositorioContato.ObterTodos();
 
         foreach (var item in registros)
         {
@@ -67,9 +68,12 @@ public class CompromissoController : Controller
         }
 
         if (!ModelState.IsValid)
+        {
+            cadastrarVM.ContatosDisponiveis.Clear();
+            foreach (var c in contatos)
+                cadastrarVM.ContatosDisponiveis.Add(new SelecionarContatoViewModel(c.Id, c.Nome));
             return View(cadastrarVM);
-
-        var contatos = repositorioContato.ObterTodos();
+        }
 
         var entidade = cadastrarVM.ParaEntidade(contatos);
 
@@ -88,12 +92,18 @@ public class CompromissoController : Controller
 
         var contatos = repositorioContato.ObterTodos();
 
-        string localOuLink;
+        string localOuLink = registroSelecionado.LocalOuLink;
 
-        if (registroSelecionado.Tipo == TipoCompromisso.Remoto) localOuLink = registroSelecionado.Link;
-        else localOuLink = registroSelecionado.Local;
-
-        var editarVM = new EditarCompromissoViewModel(registroSelecionado.Id, registroSelecionado.Assunto, registroSelecionado.DataOcorrencia, registroSelecionado.HoraInicio, registroSelecionado.HoraTermino, registroSelecionado.Tipo, localOuLink, registroSelecionado.Id, contatos);
+        var editarVM = new EditarCompromissoViewModel(
+            registroSelecionado.Id,
+            registroSelecionado.Assunto,
+            registroSelecionado.DataOcorrencia,
+            registroSelecionado.HoraInicio,
+            registroSelecionado.HoraTermino,
+            registroSelecionado.Tipo,
+            localOuLink,
+            registroSelecionado.Contato?.Id,
+            contatos);
         return View(editarVM);
     }
 
@@ -117,7 +127,12 @@ public class CompromissoController : Controller
         }
 
         if (!ModelState.IsValid)
+        {
+            editarVM.ContatosDisponiveis.Clear();
+            foreach (var c in contatos)
+                editarVM.ContatosDisponiveis.Add(new SelecionarContatoViewModel(c.Id, c.Nome));
             return View(editarVM);
+        }
 
         var entidadeEditada = editarVM.ParaEntidade(contatos);
 
