@@ -1,6 +1,5 @@
 ﻿using E_Agenda.Dominio.ModuloCategorias;
 using E_Agenda.WebApp.Models;
-using System.Runtime.CompilerServices;
 
 namespace E_Agenda.WebApp.Extensions;
 
