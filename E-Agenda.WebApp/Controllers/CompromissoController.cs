@@ -58,13 +58,15 @@ public class CompromissoController : Controller
         var registros = repositorioCompromisso.ObterTodos();
         var contatos = repositorioContato.ObterTodos();
 
-        foreach (var item in registros)
+        if (cadastrarVM.HoraTermino <= cadastrarVM.HoraInicio)
+            ModelState.AddModelError("HorarioInvalido", "O horário de término deve ser após o horário de início.");
+
+        if (registros.Any(c =>
+                c.DataOcorrencia == cadastrarVM.DataOcorrencia &&
+                c.HoraInicio < cadastrarVM.HoraTermino &&
+                c.HoraTermino > cadastrarVM.HoraInicio))
         {
-            if (registros.FirstOrDefault(c => c.DataOcorrencia == cadastrarVM.DataOcorrencia && c.HoraInicio < cadastrarVM.HoraTermino && c.HoraTermino > cadastrarVM.HoraInicio) != null)
-            {
-                ModelState.AddModelError("CadastroUnico", "Já existe um compromisso no horário selecionado");
-                break;
-            }
+            ModelState.AddModelError("CadastroUnico", "Já existe um compromisso no horário selecionado");
         }
 
         if (!ModelState.IsValid)
@@ -117,13 +119,16 @@ public class CompromissoController : Controller
         var registros = repositorioCompromisso.ObterTodos();
         var contatos = repositorioContato.ObterTodos();
 
-        foreach (var item in registros)
+        if (editarVM.HoraTermino <= editarVM.HoraInicio)
+            ModelState.AddModelError("HorarioInvalido", "O horário de término deve ser após o horário de início.");
+
+        if (registros.Any(c =>
+                c.DataOcorrencia == editarVM.DataOcorrencia &&
+                c.HoraInicio < editarVM.HoraTermino &&
+                c.HoraTermino > editarVM.HoraInicio &&
+                !c.Id.Equals(id)))
         {
-            if (registros.FirstOrDefault(c => c.DataOcorrencia == editarVM.DataOcorrencia && c.HoraInicio < editarVM.HoraTermino && c.HoraTermino > editarVM.HoraInicio && !item.Id.Equals(id)) != null)
-            {
-                ModelState.AddModelError("CadastroUnico", "Já existe um compromisso no horário selecionado");
-                break;
-            }
+            ModelState.AddModelError("CadastroUnico", "Já existe um compromisso no horário selecionado");
         }
 
         if (!ModelState.IsValid)
