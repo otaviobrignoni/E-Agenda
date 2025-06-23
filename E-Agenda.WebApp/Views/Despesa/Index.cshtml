@@ -32,7 +32,13 @@
                         </p>                        
                         <p class="card-text"><span class="fw-semibold">Valor:</span> @item.Valor</p>
                         <p class="card-text"><span class="fw-semibold">Pagamento:</span> @item.FormaPagamento</p>
-                        <p class="card-text"><span class="fw-semibold">Categorias:</span> @item.Categorias</p>
+                        <p class="card-text">
+                            <span class="fw-semibold">Categorias:</span>
+                            @foreach (var categoria in item.Categorias)
+                            {
+                                <span class="badge bg-secondary me-1">@categoria.Titulo</span>
+                            }
+                        </p>
 
                         <span class="d-flex gap-1 justify-content-end">
                             <a asp-action="editar" asp-route-id="@item.Id" class="btn btn-primary" title="Editar">
